@@ -230,6 +230,13 @@ class Header extends React.Component {
           <Tabs.TabPane tab="Replay" key="replay">
             <Form>
               <Form.Item label="Replay Helper" {...displayConfig}>
+                  <Checkbox
+                      onChange={(e) => onConfigChange('removeMarkerNode', e.target.checked)}
+                      checked={this.props.config.removeMarkerNode}
+                  >
+                      Removes markers from DOM (experimental)
+                  </Checkbox>
+
                 <Checkbox
                   onChange={(e) => onConfigChange('playScrollElementsIntoView', e.target.checked)}
                   checked={this.props.config.playScrollElementsIntoView}

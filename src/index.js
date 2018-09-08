@@ -150,6 +150,7 @@ const restoreConfig = () => {
     .then(config => {
       const cfg = {
         showSidebar: true,
+        removeMarkerNode: true,
         playScrollElementsIntoView: true,
         playHighlightElements: true,
         playCommandInterval: 0.3,

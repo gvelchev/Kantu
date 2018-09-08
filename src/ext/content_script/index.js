@@ -255,7 +255,7 @@ const highlightDom = ($dom, timeout) => {
   inspector.showMaskOver(mask.maskClick, $dom)
 
   setTimeout(() => {
-    inspector.setStyle(mask.maskClick, { display: 'none' })
+    state.config.removeMarkerNode ? getMask(true) : inspector.setStyle(mask.maskClick, { display: 'none' })
   }, timeout || MASK_CLICK_FADE_TIMEOUT)
 }
 
