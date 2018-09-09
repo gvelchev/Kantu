@@ -245,11 +245,6 @@ const togglePlayingBadge = (isPlaying, options) => {
   })
 }
 
-const isUpgradeViewed = () => {
-  return Ext.storage.local.get('upgrade_not_viewed')
-  .then(obj => obj['upgrade_not_viewed'] !== 'not_viewed')
-}
-
 const notifyRecordCommand = (command) => {
   const notifId = uid()
 
@@ -375,7 +370,7 @@ const isTabActiveAndFocused = (tabId) => {
 
 const bindEvents = () => {
   Ext.browserAction.onClicked.addListener(() => {
-    isUpgradeViewed()
+    Promise.resolve(true)
     .then(isViewed => {
       if (isViewed) {
         return showPanelWindow()
@@ -1749,28 +1744,6 @@ const initIPC = () => {
   })
 }
 
-const initOnInstalled = () => {
-  if (typeof process !== 'undefined' && process.env.NODE_ENV === 'production') {
-    Ext.runtime.setUninstallURL(config.urlAfterUninstall)
-
-    Ext.runtime.onInstalled.addListener(({ reason }) => {
-      switch (reason) {
-        case 'install':
-          return Ext.tabs.create({
-            url: config.urlAfterInstall
-          })
-
-        case 'update':
-          Ext.browserAction.setBadgeText({ text: 'NEW' })
-          Ext.browserAction.setBadgeBackgroundColor({ color: '#4444FF' })
-          return Ext.storage.local.set({
-            upgrade_not_viewed: 'not_viewed'
-          })
-      }
-    })
-  }
-}
-
 const initPlayTab = () => {
   return Ext.windows.getCurrent()
   .then(window => {
@@ -1796,10 +1769,9 @@ const initDownloadMan = () => {
   })
 }
 
-bindEvents()
-initIPC()
-initOnInstalled()
-initPlayTab()
-initDownloadMan()
+bindEvents();
+initIPC();
+initPlayTab();
+initDownloadMan();
 
 window.clip = clipboard
