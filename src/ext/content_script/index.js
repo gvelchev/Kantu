@@ -100,25 +100,31 @@ const getMask = (function () {
   }
 
   return (remove) => {
-    if (remove && factory)  return factory.clear()
-    if (mask)               return mask
+    if (remove && factory) {
+        factory.clear();
+        return factory = mask = undefined;
+    }
 
-    factory = inspector.maskFactory()
+    if (mask) {
+        return mask;
+    }
 
-    const maskClick   = factory.gen({ background: 'green', border: '2px solid purple' })
-    const maskHover   = factory.gen({ background: '#ffa800', border: '2px solid purple' })
+    factory = inspector.maskFactory();
 
-    addLogoImg(maskClick)
-    addLogoImg(maskHover)
+    const maskClick   = factory.gen({ background: 'green', border: '2px solid purple' });
+    const maskHover   = factory.gen({ background: '#ffa800', border: '2px solid purple' });
 
-    console.log('maskClick', maskClick)
+    addLogoImg(maskClick);
+    addLogoImg(maskHover);
 
-    mask = { maskClick, maskHover }
+    console.log('maskClick', maskClick);
 
-    document.body.appendChild(maskClick)
-    document.body.appendChild(maskHover)
+    mask = { maskClick, maskHover };
 
-    return mask
+    document.body.appendChild(maskClick);
+    document.body.appendChild(maskHover);
+
+    return mask;
   }
 })()
 
