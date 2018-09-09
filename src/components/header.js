@@ -234,7 +234,7 @@ class Header extends React.Component {
                       onChange={(e) => onConfigChange('removeMarkerNode', e.target.checked)}
                       checked={this.props.config.removeMarkerNode}
                   >
-                      Removes markers from DOM (experimental)
+                      Remove markers from DOM (experimental)
                   </Checkbox>
 
                 <Checkbox
