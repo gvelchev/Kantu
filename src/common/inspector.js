@@ -320,6 +320,12 @@ var xpath = function (dom, cur, list) {
       return [`*[@id="${cur.id}"]`].concat(list)
     }
 
+    if (cur.hasAttribute('data-btname')) {
+        return [
+            `${cur.tagName.toLowerCase()}[@data-btname="${cur.getAttribute('data-btname')}"]`
+        ].concat(list);
+    }
+
     return helper(dom, cur.parentNode, [name(cur)].concat(list))
   }
 
